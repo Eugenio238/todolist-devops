@@ -1,0 +1,207 @@
+<nav class="navbar navbar-expand-lg bg-white shadow-sm">
+
+  <div class="container">
+
+    <a
+      class="navbar-brand fw-bold"
+      routerLink="/dashboard"
+    >
+
+      <i class="bi bi-check2-square text-primary me-2"></i>
+
+      TodoApp
+
+    </a>
+
+    <div class="d-flex align-items-center gap-3">
+
+      @if (auth.user(); as user) {
+
+        <span class="text-secondary">
+
+          Bonjour,
+          <strong>
+            {{ user.name }}
+          </strong>
+
+        </span>
+
+      }
+
+      <button
+        type="button"
+        class="btn btn-outline-danger btn-sm"
+        (click)="handleLogout()"
+      >
+
+        <i class="bi bi-box-arrow-right me-2"></i>
+
+        Déconnexion
+
+      </button>
+
+    </div>
+
+  </div>
+
+</nav>
+
+
+<main class="container py-5">
+
+  <div class="mb-4">
+
+    <h1 class="h3 fw-bold">
+      Mon tableau de bord
+    </h1>
+
+    <p class="text-secondary mb-0">
+      Gérez vos tâches facilement.
+    </p>
+
+  </div>
+
+
+  @if (todoService.error()) {
+
+    <div class="alert alert-danger">
+
+      {{ todoService.error() }}
+
+    </div>
+
+  }
+
+
+  <div class="row g-4">
+
+    <div class="col-lg-5">
+
+      <app-todo-form
+        (create)="handleCreate($event)"
+      />
+
+      @if (editingTodo) {
+
+        <div class="card border-0 shadow-sm">
+
+          <div class="card-body">
+
+            <h2 class="h5 mb-3">
+
+              <i class="bi bi-pencil-square me-2"></i>
+
+              Modifier la tâche
+
+            </h2>
+
+            <form
+              (ngSubmit)="handleSaveEdit()"
+            >
+
+              <div class="mb-3">
+
+                <label
+                  for="edit-title"
+                  class="form-label"
+                >
+                  Titre
+                </label>
+
+                <input
+                  id="edit-title"
+                  name="edit-title"
+                  type="text"
+                  class="form-control"
+                  [(ngModel)]="editingTodo.title"
+                  required
+                />
+
+              </div>
+
+
+              <div class="mb-3">
+
+                <label
+                  for="edit-description"
+                  class="form-label"
+                >
+                  Description
+                </label>
+
+                <textarea
+                  id="edit-description"
+                  name="edit-description"
+                  class="form-control"
+                  rows="3"
+                  [(ngModel)]="editingTodo.description"
+                ></textarea>
+
+              </div>
+
+
+              <div class="d-flex gap-2">
+
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  [disabled]="todoService.isUpdating()"
+                >
+
+                  @if (todoService.isUpdating()) {
+
+                    <span
+                      class="spinner-border spinner-border-sm me-2"
+                    ></span>
+
+                    Enregistrement...
+
+                  } @else {
+
+                    <i class="bi bi-check-lg me-2"></i>
+
+                    Enregistrer
+
+                  }
+
+                </button>
+
+
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  (click)="handleCancelEdit()"
+                >
+
+                  Annuler
+
+                </button>
+
+              </div>
+
+            </form>
+
+          </div>
+
+        </div>
+
+      }
+
+    </div>
+
+
+    <div class="col-lg-7">
+
+      <app-todo-list
+        [todos]="todoService.todos()"
+        [isLoading]="todoService.isLoading()"
+        (toggle)="handleToggle($event)"
+        (edit)="handleEdit($event)"
+        (delete)="handleDelete($event)"
+      />
+
+    </div>
+
+  </div>
+
+</main>

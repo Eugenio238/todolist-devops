@@ -1,0 +1,71 @@
+<div class="card border-0 shadow-sm mb-4">
+
+  <div class="card-body">
+
+    <h2 class="h5 mb-3">
+
+      <i class="bi bi-plus-circle me-2"></i>
+
+      Ajouter une tâche
+
+    </h2>
+
+    <form (ngSubmit)="handleSubmit()">
+
+      <div class="mb-3">
+
+        <label
+          for="title"
+          class="form-label"
+        >
+          Titre
+        </label>
+
+        <input
+          id="title"
+          name="title"
+          type="text"
+          class="form-control"
+          [(ngModel)]="title"
+          placeholder="Ex : Apprendre Angular"
+          required
+        />
+
+      </div>
+
+      <div class="mb-3">
+
+        <label
+          for="description"
+          class="form-label"
+        >
+          Description
+        </label>
+
+        <textarea
+          id="description"
+          name="description"
+          class="form-control"
+          rows="3"
+          [(ngModel)]="description"
+          placeholder="Description de la tâche"
+        ></textarea>
+
+      </div>
+
+      <button
+        type="submit"
+        class="btn btn-primary"
+      >
+
+        <i class="bi bi-plus-lg me-2"></i>
+
+        Ajouter
+
+      </button>
+
+    </form>
+
+  </div>
+
+</div>

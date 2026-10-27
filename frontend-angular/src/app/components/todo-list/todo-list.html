@@ -1,0 +1,125 @@
+<div class="card border-0 shadow-sm">
+
+  <div class="card-body">
+
+    <h2 class="h5 mb-3">
+
+      <i class="bi bi-list-check me-2"></i>
+
+      Mes tâches
+
+    </h2>
+
+    @if (isLoading) {
+
+      <div class="text-center py-4">
+
+        <div
+          class="spinner-border text-primary"
+        ></div>
+
+      </div>
+
+    } @else if (todos.length === 0) {
+
+      <div
+        class="text-center py-5 text-secondary"
+      >
+
+        <i
+          class="bi bi-inbox fs-1 d-block mb-3"
+        ></i>
+
+        <p class="mb-0">
+          Aucune tâche pour le moment.
+        </p>
+
+      </div>
+
+    } @else {
+
+      <div class="list-group list-group-flush">
+
+        @for (
+          todo of todos;
+          track todo.id
+        ) {
+
+          <div
+            class="list-group-item px-0"
+          >
+
+            <div
+              class="d-flex align-items-start justify-content-between gap-3"
+            >
+
+              <div class="d-flex gap-3">
+
+                <input
+                  class="form-check-input mt-1"
+                  type="checkbox"
+                  [checked]="todo.completed"
+                  (change)="toggle.emit(todo)"
+                />
+
+                <div>
+
+                  <h3
+                    class="h6 mb-1"
+                    [class.text-decoration-line-through]="todo.completed"
+                    [class.text-secondary]="todo.completed"
+                  >
+                    {{ todo.title }}
+                  </h3>
+
+                  @if (todo.description) {
+
+                    <p
+                      class="small text-secondary mb-0"
+                    >
+                      {{ todo.description }}
+                    </p>
+
+                  }
+
+                </div>
+
+              </div>
+
+              <div class="d-flex gap-2">
+
+                <button
+                  type="button"
+                  class="btn btn-sm btn-outline-primary"
+                  (click)="edit.emit(todo)"
+                >
+
+                  <i class="bi bi-pencil"></i>
+
+                </button>
+
+                <button
+                  type="button"
+                  class="btn btn-sm btn-outline-danger"
+                  (click)="delete.emit(todo.id)"
+                >
+
+                  <i class="bi bi-trash"></i>
+
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        }
+
+      </div>
+
+    }
+
+  </div>
+
+</div>

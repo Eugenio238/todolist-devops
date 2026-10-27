@@ -1,0 +1,38 @@
+# Fichiers et dossiers à ignorer par Git
+
+# Secrets et variables d environnement
+.env
+.env.*
+!.env.example
+**/.env
+**/.env.*
+!**/.env.example
+
+# Laravel
+/backend-laravel/vendor/
+/backend-laravel/node_modules/
+/backend-laravel/public/build/
+/backend-laravel/public/hot
+/backend-laravel/storage/*.key
+
+# Angular
+/frontend-angular/node_modules/
+/frontend-angular/dist/
+/frontend-angular/.angular/
+/frontend-angular/coverage/
+
+# Vue.js
+/frontend-vue/node_modules/
+/frontend-vue/dist/
+/frontend-vue/dist-ssr/
+/frontend-vue/coverage/
+
+# Logs et fichiers temporaires
+*.log
+*.local
+.DS_Store
+Thumbs.db
+
+# Editeurs
+.idea/
+.vscode/
